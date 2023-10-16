@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjn40vvw5nvhg"]
+
+[ext_resource type="Texture2D" uid="uid://rbjqrxalry87" path="res://art/enemyFlyingAlt_1.png" id="1_j7fde"]
+[ext_resource type="Script" path="res://mob.gd" id="1_xcfbp"]
+[ext_resource type="Texture2D" uid="uid://c65jj1xgk6vlw" path="res://art/enemyFlyingAlt_2.png" id="2_5345x"]
+[ext_resource type="Texture2D" uid="uid://bnkojbjsadk73" path="res://art/enemySwimming_1.png" id="3_ac6hy"]
+[ext_resource type="Texture2D" uid="uid://bkxi626q1sad" path="res://art/enemySwimming_2.png" id="4_aq24k"]
+[ext_resource type="Texture2D" uid="uid://ca043fn42bouk" path="res://art/enemyWalking_1.png" id="5_xb4yf"]
+[ext_resource type="Texture2D" uid="uid://dvrhgc2ovkata" path="res://art/enemyWalking_2.png" id="6_wdfng"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jupor"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j7fde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5345x")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ac6hy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_aq24k")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_xb4yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wdfng")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md0eu"]
+radius = 34.0
+height = 102.0
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_xcfbp")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_jupor")
+animation = &"fly"
+speed_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_md0eu")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+enable_node_path = NodePath("../CollisionShape2D")
